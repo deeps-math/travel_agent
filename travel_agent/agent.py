@@ -133,7 +133,7 @@ root_agent = SequentialAgent(
 )
 
 
-logging.info("oot_agent created.")
+logging.info("root_agent created.")
 # Session and Runner
 async def setup_session_and_runner():
     session_service = InMemorySessionService()
@@ -155,6 +155,7 @@ async def call_agent_async(query: str):
             if event.is_final_response() and event.content and event.content.parts:
               print("Agent Response:", event.content.parts[0].text)
               
+
 
 
 
