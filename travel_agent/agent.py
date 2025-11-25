@@ -8,7 +8,7 @@ from google.genai import types
 from google.adk.models.google_llm import Gemini
 import logging
 logging.basicConfig(level=logging.INFO)
-logging.info("Starting agent pipeline")
+logging.info("Starting Travel Concierge Agent pipeline")
 
 APP_NAME="travel_agent"
 USER_ID="usertravel1"
@@ -21,10 +21,10 @@ retry_config = types.HttpRetryOptions(
     http_status_codes=[429, 500, 503, 504],  # Retry on these HTTP errors
 )
 
-basic_search_agent = Agent(
+travel_agent = Agent(
     name="travel_agent",
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),   
-    description="I am Travel Agent to create itenary using google search tool.",
+    description="I am Travel Travel Concierge Agent to create itenary using google search tool.",
     instruction="""You are a smart Hybrid travel planning assistant.
 You maintain conversational memory within this session.
 Use past user messages to preserve preferences and previously shared details.
@@ -133,7 +133,7 @@ logging.info("summarizer_agent created.")
 
 root_agent = SequentialAgent(
     name="TravelAgentPipeline",
-    sub_agents=[basic_search_agent, summarizer_agent],
+    sub_agents=[travel_agent, summarizer_agent],
    
 )
 
@@ -160,6 +160,7 @@ async def call_agent_async(query: str):
             if event.is_final_response() and event.content and event.content.parts:
               print("Agent Response:", event.content.parts[0].text)
               
+
 
 
 
