@@ -3,7 +3,7 @@ from google.adk.agents import Agent, SequentialAgent
 
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
-from google.adk.tools import google_search,load_memory
+from google.adk.tools import google_search
 from google.genai import types
 from google.adk.models.google_llm import Gemini
 import logging
@@ -25,8 +25,7 @@ basic_search_agent = Agent(
     name="travel_agent",
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),   
     description="I am Travel Agent to create itenary using google search tool.",
-    instruction="""
-    ""You are a smart Hybrid travel planning assistant.
+    instruction="""You are a smart Hybrid travel planning assistant.
 You maintain conversational memory within this session.
 Use past user messages to preserve preferences and previously shared details.
 Use this memory intelligently in planning.
@@ -117,7 +116,13 @@ summarizer_agent = Agent(
     ),
     # The instruction is modified to request a bulleted list for a clear output format.
     instruction="""You receive research_findings from the previous agent.
-    Always extract the content directly from the field provided.""",
+    Your job is to create a complete, day-by-day itinerary:
+- Break down by Day 1, Day 2, Day 3...
+- Morning / Afternoon / Evening
+- Include Attractions, Food, Local Transport, Stays
+- Include Budget, Travel Tips, Safety Notes
+- Keep it concise and clear for the user
+Always extract the content directly from the field provided.""",
       output_key="final_summary",
 )
 
@@ -155,6 +160,7 @@ async def call_agent_async(query: str):
             if event.is_final_response() and event.content and event.content.parts:
               print("Agent Response:", event.content.parts[0].text)
               
+
 
 
 
