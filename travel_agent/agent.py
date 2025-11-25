@@ -10,7 +10,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logging.info("Starting agent pipeline")
 
-APP_NAME="google_search_agent"
+APP_NAME="travel_agent"
 USER_ID="user1234"
 SESSION_ID="1234"
 
@@ -160,3 +160,4 @@ async def call_agent_async(query: str):
 
 # Note: In Colab, you can directly use 'await' at the top level.
 # If running this code as a standalone Python script, you'll need to use asyncio.run() or manage the event loop.
+
