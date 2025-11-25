@@ -11,8 +11,8 @@ logging.basicConfig(level=logging.INFO)
 logging.info("Starting agent pipeline")
 
 APP_NAME="travel_agent"
-USER_ID="user1234"
-SESSION_ID="1234"
+USER_ID="usertravel1"
+SESSION_ID="1002"
 
 retry_config = types.HttpRetryOptions(
     attempts=5,  # Maximum retry attempts
@@ -22,7 +22,7 @@ retry_config = types.HttpRetryOptions(
 )
 
 basic_search_agent = Agent(
-    name="basic_search_agent",
+    name="travel_agent",
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),   
     description="I am Travel Agent to create itenary using google search tool.",
     instruction="""
@@ -123,7 +123,7 @@ summarizer_agent = Agent(
 
 
 
-print("✅ summarizer_agent created.")
+
 logging.info("summarizer_agent created.")
 
 root_agent = SequentialAgent(
@@ -133,7 +133,6 @@ root_agent = SequentialAgent(
 )
 
 
-print("✅ root_agent created.")
 logging.info("oot_agent created.")
 # Session and Runner
 async def setup_session_and_runner():
@@ -158,6 +157,6 @@ async def call_agent_async(query: str):
               
 
 
-# Note: In Colab, you can directly use 'await' at the top level.
-# If running this code as a standalone Python script, you'll need to use asyncio.run() or manage the event loop.
+
+
 
